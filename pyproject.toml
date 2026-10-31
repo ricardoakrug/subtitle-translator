@@ -1,0 +1,57 @@
+[project]
+name = "subtitle-translator"
+version = "0.1.0"
+description = "Extract MKV subtitles, OCR bitmap tracks, and translate them to Brazilian Portuguese with OpenRouter."
+readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Ricardo Krug" }]
+requires-python = ">=3.12"
+classifiers = [
+    "Environment :: Console",
+    "Programming Language :: Python :: 3",
+    "Topic :: Multimedia :: Video",
+]
+dependencies = [
+    "babelfish>=0.6.1",
+    "httpx>=0.28.0",
+    "pgsrip>=0.1.12",
+    "pysubs2>=1.8.0",
+    "rich>=14.0.0",
+    "tenacity>=9.1.0",
+    "typer>=0.24.0",
+]
+
+[project.urls]
+Repository = "https://github.com/ricardoakrug/subtitle-translator"
+
+[project.scripts]
+subtrans = "subtrans.cli:app"
+subtrans-sweep = "subtrans.sweep:app"
+
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/subtrans"]
+
+[tool.hatch.build.targets.sdist]
+include = ["src/", "tests/", "README.md", "LICENSE", "uv.lock"]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+    "ruff>=0.14.0",
+]
+
+[tool.pytest.ini_options]
+# The anyio plugin (an httpx dependency) warns on import under pytest 9.
+addopts = "-p no:anyio"
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "SIM"]

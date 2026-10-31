@@ -1,0 +1,19 @@
+.venv/
+__pycache__/
+*.pyc
+.python-version-local
+dist/
+build/
+*.egg-info/
+.ruff_cache/
+.pytest_cache/
+.env
+.envrc
+
+# Test videos and the files the tool writes next to them
+*.mkv
+*.pt-BR.srt
+*.pt-BR.ass
+*.progress.json
+*.manual.json
+*.tmp
